@@ -14,6 +14,7 @@ import java.util.TreeMap;
  */
 public class BioAnalyzerSymptomFile implements IBioAnalyzer
 {
+	private SymptomReaderFile inputFile;
 	List<String> symptoms;
 	private TreeMap<String, Integer> map;
 
@@ -22,8 +23,9 @@ public class BioAnalyzerSymptomFile implements IBioAnalyzer
 	 * @param symptomRawDataFile Name of the raw symptom input file to be read
 	 * @param symptomMapDataFile Name of the symptom map output file to be written
 	 */
-	public BioAnalyzerSymptomFile(List<String> symptoms)
+	public BioAnalyzerSymptomFile(String symptomRawDataFile)
 	{
+		inputFile = new SymptomReaderFile(symptomRawDataFile);
 		this.symptoms = symptoms;
 		map = new TreeMap<String, Integer>();
 	}
@@ -39,15 +41,32 @@ public class BioAnalyzerSymptomFile implements IBioAnalyzer
 	@Override
 	public void buildMapFile()
 	{
-		for (int i=0; i<symptoms.size(); i++)
+		inputFile.openSymptomDataSource();
+		String symptom = inputFile.readSymptom();
+		
+		/*
+		 * Refer to ISymptomReader interface comments to understand why symptoms are read one by one
+		 */
+		while ( symptom != null) 
 		{
-			createMapEntry(symptoms.get(i));
+			try
+			{
+				inputFile.checkSymptom(symptom);
+			}
+			catch (IllegalSymptomException e)
+			{
+				System.err.println("Symptom input file is corrupted, aborting !");
+				return;
+			}
+			createMapEntry(symptom);
+			symptom = inputFile.readSymptom();		
 		}
-	}
+		
+		inputFile.closeSymptomDataSource();	}
 	
 	@Override
 	public String toString()
-	{
+	{	
 		String newLine = System.getProperty("line.separator");
 		StringBuilder sortedMap = new StringBuilder();
 		
