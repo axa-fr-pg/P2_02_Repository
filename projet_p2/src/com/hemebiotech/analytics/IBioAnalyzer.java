@@ -29,6 +29,6 @@ public interface IBioAnalyzer {
 	 * Entries are written in the format <biological key>=<biological value>.
 	 * Each map entry will be followed by a <line separator>.
 	 */
-	void storeSortedMapFile();
+	void storeMapFile();
 	
 }

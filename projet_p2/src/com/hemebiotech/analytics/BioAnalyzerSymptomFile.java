@@ -1,9 +1,10 @@
 package com.hemebiotech.analytics;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
+
+import com.hemebiotech.exception.IllegalSymptomException;
+import com.hemebiotech.io.input.SymptomReaderFile;
+import com.hemebiotech.io.output.MapWriterSymptomFile;
 
 /**
  * Class for Symptom data analysis based on file system data storage.
@@ -15,7 +16,6 @@ import java.util.TreeMap;
 public class BioAnalyzerSymptomFile implements IBioAnalyzer
 {
 	private SymptomReaderFile inputFile;
-	List<String> symptoms;
 	private TreeMap<String, Integer> map;
 	private MapWriterSymptomFile outputFile;
 
@@ -27,7 +27,6 @@ public class BioAnalyzerSymptomFile implements IBioAnalyzer
 	public BioAnalyzerSymptomFile(String symptomRawDataFile, String symptomMapDataFile)
 	{
 		inputFile = new SymptomReaderFile(symptomRawDataFile);
-		this.symptoms = symptoms;
 		map = new TreeMap<String, Integer>();
 		outputFile = new MapWriterSymptomFile(symptomMapDataFile);
 	}
@@ -64,23 +63,23 @@ public class BioAnalyzerSymptomFile implements IBioAnalyzer
 			symptom = inputFile.readSymptom();		
 		}
 		
-		inputFile.closeSymptomDataSource();	}
+		inputFile.closeSymptomDataSource();
+	}
 	
 	@Override
 	public String toString()
-	{	
+	{
 		String newLine = System.getProperty("line.separator");
 		StringBuilder sortedMap = new StringBuilder();
 		
-		// Data sorting is embedded in the HashMap class for free
-		map.entrySet().stream().forEach(entry -> 
-			sortedMap.append(entry.getKey() + "=" + entry.getValue() + newLine));
+		// The map will be generated in the right order, TreeMap is always sorted
+		map.entrySet().stream().forEach(entry -> sortedMap.append(entry.getKey() + "=" + entry.getValue() + newLine));
 		
 		return sortedMap.toString();
 	}
 	
 	@Override
-	public void storeSortedMapFile()
+	public void storeMapFile()
 	{
 		outputFile.openMapDataSource();
 		outputFile.writeMapString(toString());
