@@ -20,7 +20,7 @@ public class SymptomReaderFile implements ISymptomReader {
 	
 	/**
 	 * Method for creating an instance of SymptomReaderFile
-	 * @param path to file containing raw symptoms
+	 * @param filepath file containing raw symptoms
 	 */
 	public SymptomReaderFile (String filepath) 
 	{

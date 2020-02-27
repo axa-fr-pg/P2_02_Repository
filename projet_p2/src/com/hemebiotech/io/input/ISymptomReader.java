@@ -33,7 +33,8 @@ public interface ISymptomReader {
 	
 	/**
 	 * Method to check an entry which has been previously read from a data source
-	 * @throws IllegalSymptom when input data contains non alphanumeric characters
+	 * @param symptom to be checked
+	 * @throws IllegalSymptomException when input data contains non alphanumeric characters
 	 * @author Philippe GEY
 	 * @version 1.0
 	 */

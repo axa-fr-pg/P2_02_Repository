@@ -9,7 +9,7 @@ public interface IBioAnalyzer {
 
 	/**
 	 * Method containing all business intelligence of the biological analysis
-	 * @param symptom
+	 * @param symptom input for new entry
 	 */
 	void createMapEntry(String symptom);
 
@@ -26,8 +26,8 @@ public interface IBioAnalyzer {
 	
 	/**
 	 * Method to store a map containing biological data into an output file.
-	 * Entries are written in the format <biological key>=<biological value>.
-	 * Each map entry will be followed by a <line separator>.
+	 * Entries are written in the format "biological key"="biological value".
+	 * Each map entry will be followed by a line separator.
 	 */
 	void storeMapFile();
 	

@@ -1,11 +1,12 @@
 package com.hemebiotech.exception;
 
+/**
+ * Class for Exception raised when illegal symptom data is detected
+ */
 public class IllegalSymptomException extends Exception {
 	
-	/**
-	 * ID to be refined in a future release
-	 */
 	private static final long serialVersionUID = 20200224152653L;
+
 
 	public IllegalSymptomException()
 	{
