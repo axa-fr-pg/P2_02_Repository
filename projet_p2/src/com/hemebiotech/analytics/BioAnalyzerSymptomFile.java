@@ -17,17 +17,19 @@ public class BioAnalyzerSymptomFile implements IBioAnalyzer
 	private SymptomReaderFile inputFile;
 	List<String> symptoms;
 	private TreeMap<String, Integer> map;
+	private MapWriterSymptomFile outputFile;
 
 	/**
 	 * Method for creating an instance of BioAnalyzerSymptomFile
 	 * @param symptomRawDataFile Name of the raw symptom input file to be read
 	 * @param symptomMapDataFile Name of the symptom map output file to be written
 	 */
-	public BioAnalyzerSymptomFile(String symptomRawDataFile)
+	public BioAnalyzerSymptomFile(String symptomRawDataFile, String symptomMapDataFile)
 	{
 		inputFile = new SymptomReaderFile(symptomRawDataFile);
 		this.symptoms = symptoms;
 		map = new TreeMap<String, Integer>();
+		outputFile = new MapWriterSymptomFile(symptomMapDataFile);
 	}
 	
 	@Override
@@ -80,8 +82,8 @@ public class BioAnalyzerSymptomFile implements IBioAnalyzer
 	@Override
 	public void storeSortedMapFile()
 	{
-		// PLACEHOLDER to call output management methods
-		// in the meanwhile print them all on standard output
-		System.out.println(toString());
+		outputFile.openMapDataSource();
+		outputFile.writeMapString(toString());
+		outputFile.closeMapDataSource();
 	}
 }

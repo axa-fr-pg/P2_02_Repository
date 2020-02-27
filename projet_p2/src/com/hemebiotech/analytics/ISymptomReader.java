@@ -45,4 +45,5 @@ public interface ISymptomReader {
 	 * @version 1.0
 	 */
 	void closeSymptomDataSource();
+
 }

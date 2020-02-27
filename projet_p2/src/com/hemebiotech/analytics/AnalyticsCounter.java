@@ -12,16 +12,8 @@ public class AnalyticsCounter {
 	
 	public static void main(String args[]) throws Exception {
 
-		BioAnalyzerSymptomFile analyzer = new BioAnalyzerSymptomFile("symptoms.txt");
+		BioAnalyzerSymptomFile analyzer = new BioAnalyzerSymptomFile("symptoms.txt", "results.out");
 		analyzer.buildMapFile();
 		analyzer.storeSortedMapFile();
-
-		
-		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
 	}
 }
